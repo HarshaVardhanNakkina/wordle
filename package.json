@@ -1,13 +1,15 @@
 {
     "name": "@ngsharsha/wordle",
-    "version": "1.0.3",
-    "description": "World clone for terminal",
-    "exports": "./src/index.js",
+    "version": "1.0.4",
+    "description": "Wordle clone for terminal",
+    "main": "./src/index.js",
     "type": "module",
-    "bin": "./src/index.js",
+    "bin": "./dist/wordle.js",
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0",
     "scripts": {
+        "start": "node src/index.js",
         "build": "rollup -c",
+        "prepare": "npm run buld",
         "publish-package": "npm publish --access public"
     },
     "repository": {

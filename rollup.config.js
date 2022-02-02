@@ -5,6 +5,6 @@ export default {
     output: {
         file: 'dist/wordle.js',
         format: 'es'
-        // plugins: [terser()]
+        plugins: [terser()]
     }
 };
