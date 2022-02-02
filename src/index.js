@@ -22,12 +22,17 @@ function check(word, guess) {
     console.clear();
     let row = '';
 
+    let remainingWord = word;
     for (let letter = 0; letter < word.length; letter++) {
         const guessedChar = guess[letter];
         const actualChar = word[letter];
-        if (guessedChar === actualChar) row += chalk.white.bgGreen.bold(` ${guessedChar} `);
-        else if (word.includes(guessedChar)) row += chalk.black.bgYellow.bold(` ${guessedChar} `);
-        else row += chalk.white.bgGray.bold(` ${guessedChar} `);
+        if (guessedChar === actualChar) {
+            row += chalk.white.bgGreen.bold(` ${guessedChar} `);
+            remainingWord = remainingWord.replace(guessedChar, '');
+        } else if (remainingWord.includes(guessedChar)) {
+            row += chalk.black.bgYellow.bold(` ${guessedChar} `);
+            remainingWord = remainingWord.replace(guessedChar, '');
+        } else row += chalk.white.bgGray.bold(` ${guessedChar} `);
     }
     boardState += row + '\n';
     process.stdout.write(boardState);
@@ -47,7 +52,7 @@ async function play(word, tries) {
     }
     prevGuesses.push(guess);
     if (check(word, guess)) {
-        console.log('WINNER');
+        console.log('You Win.');
         return;
     }
     process.stdout.write('\n');
