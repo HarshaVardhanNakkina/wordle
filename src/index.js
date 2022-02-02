@@ -25,11 +25,9 @@ function check(word, guess) {
     for (let letter = 0; letter < word.length; letter++) {
         const guessedChar = guess[letter];
         const actualChar = word[letter];
-        if (guessedChar === actualChar) {
-            row += chalk.white.bgGreen.bold(` ${guessedChar} `);
-        } else if (word.includes(guessedChar)) {
-            row += chalk.black.bgYellow.bold(` ${guessedChar} `);
-        } else row += chalk.white.bgGray.bold(` ${guessedChar} `);
+        if (guessedChar === actualChar) row += chalk.white.bgGreen.bold(` ${guessedChar} `);
+        else if (word.includes(guessedChar)) row += chalk.black.bgYellow.bold(` ${guessedChar} `);
+        else row += chalk.white.bgGray.bold(` ${guessedChar} `);
     }
     boardState += row + '\n';
     process.stdout.write(boardState);
