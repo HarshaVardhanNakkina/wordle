@@ -4,7 +4,7 @@ export default {
     input: 'src/index.js',
     output: {
         file: 'dist/wordle.js',
-        format: 'es',
-        plugins: [terser()]
+        format: 'es'
+        // plugins: [terser()]
     }
 };
