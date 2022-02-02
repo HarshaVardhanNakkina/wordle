@@ -1,19 +1,7 @@
-#!/usr/bin/env node
-
 import chalk from 'chalk';
 import prompts from 'prompts';
 
 import words from './words.js';
-
-function printBoard(board) {
-    console.clear();
-    for (let row of board) {
-        for (let letter of row) {
-            process.stdout.write(chalk.white.bgGreenBright.bold(` ${letter} `));
-        }
-        process.stdout.write('\n');
-    }
-}
 
 const prevGuesses = [];
 let boardState = '';
@@ -33,12 +21,17 @@ const wordlePrompt = {
 function check(word, guess) {
     console.clear();
     let row = '';
+
     for (let letter = 0; letter < word.length; letter++) {
-        if (guess[letter] === word[letter]) row += chalk.white.bgGreen.bold(` ${guess[letter]} `);
-        else if (word.includes(guess[letter])) row += chalk.white.bgYellow.bold(` ${guess[letter]} `);
-        else row += chalk.white.bgGray.bold(` ${guess[letter]} `);
+        const guessedChar = guess[letter];
+        const actualChar = word[letter];
+        if (guessedChar === actualChar) {
+            row += chalk.white.bgGreen.bold(` ${guessedChar} `);
+        } else if (word.includes(guessedChar)) {
+            row += chalk.black.bgYellow.bold(` ${guessedChar} `);
+        } else row += chalk.white.bgGray.bold(` ${guessedChar} `);
     }
-    boardState += row + '\n'; //.padEnd(boardState.length + process.stdout.columns - 15, ' ');
+    boardState += row + '\n';
     process.stdout.write(boardState);
     return guess === word;
 }
@@ -49,7 +42,7 @@ async function play(word, tries) {
         return;
     }
     const res = await prompts(wordlePrompt);
-    const { guess } = res;
+    const guess = res.guess?.toUpperCase();
 
     if (typeof guess === 'undefined') {
         throw new Error('What happened???');
@@ -65,12 +58,14 @@ async function play(word, tries) {
 
 async function start() {
     console.clear();
+    console.log(chalk.bgGreen(` X `), ' - correct place');
+    console.log(chalk.bgYellow(` X `), ' - wrong place');
+    console.log(chalk.bgGray(` X `), ' - absent');
     const nWords = 5757; // number of words we have
     const maxTries = 6;
     // get a random number from 1-5757 (inclusive)
     const index = Math.floor(Math.random() * nWords) + 1;
-    const word = words[index];
-    console.log(word);
+    const word = words[index].toUpperCase();
     try {
         await play(word, maxTries);
     } catch (err) {
