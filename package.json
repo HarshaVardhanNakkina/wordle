@@ -7,13 +7,18 @@
     "bin": "./dist/wordle.js",
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0",
     "scripts": {
-        "build": "rollup -c"
+        "build": "rollup -c",
+        "prepublish": "npm run build",
+        "publish": "npm publish --access public"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/HarshaVardhanNakkina/wordle.git"
     },
-    "keywords": ["wordle", "games"],
+    "keywords": [
+        "wordle",
+        "games"
+    ],
     "author": "N G S HarshaVardhan",
     "license": "ISC",
     "bugs": {
