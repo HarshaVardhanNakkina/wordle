@@ -10,8 +10,8 @@ const wordlePrompt = {
     name: 'guess',
     message: 'Enter a 5 letter word: ',
     validate: value => {
-        if (value.length != 5) return 'Word must be 5 letters';
-        if (!/^[a-z]+$/i.test(value)) return 'Word must only contain lower case alphabets';
+        if (value.length !== 5) return 'Word must be 5 letters';
+        if (!/^[a-z]+$/.test(value)) return 'Word must only contain lower case alphabets';
         if (!words.includes(value)) return 'Word not found in word list';
         if (prevGuesses.includes(value.toUpperCase())) return 'You have already guessed this word';
         return true;
